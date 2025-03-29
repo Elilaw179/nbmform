@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script type="module">
+      // Import Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBJrYJeN67HcpW4wm--l7idb9Nbk3QMll8",
+        authDomain: "studentapp-d41f8.firebaseapp.com",
+        projectId: "studentapp-d41f8",
+        storageBucket: "studentapp-d41f8.appspot.com",
+        messagingSenderId: "807861020736",
+        appId: "1:807861020736:web:d2b72e83c7da0e0e6997a5",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Make Firestore available in other scripts
+      window.db = db;
+    </script>
+  </head>
+  <body>
+    <div class="admin-dashboard">
+      <h2>📋 NBM Dashboard</h2>
+
+      <div class="btn-container">
+        <button id="logoutButton">Logout</button>
+      <button id="printButton">Print</button>
+
+      </div>
+      <div class="admin-dashboard">
+        <table id="studentsTable">
+          <thead>
+            <tr>
+              <th>Serial No.</th>
+              <th>First Name</th>
+              <th>Surname</th>
+              <th>Gender</th>
+              <th>Campus</th>
+              <th>Skills</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
