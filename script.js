@@ -6,9 +6,9 @@ import {
   collection,
   addDoc,
   deleteDoc,
-  updateDoc ,
+  updateDoc,
   doc,
-  getDoc, 
+  getDoc,
   getDocs,
   query,
   where,
@@ -273,52 +273,89 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  //  EDIT STUDENT FUNCTION
+  // Function to enable inline editing for a student row
   async function editStudent(studentId) {
-    const studentRef = doc(db, "students", studentId);
-    const studentSnap = await getDoc(studentRef);
+    const row = document
+      .querySelector(`button[data-id="${studentId}"]`)
+      .closest("tr");
 
-    if (studentSnap.exists()) {
-      const student = studentSnap.data();
-      const newFirstName = prompt("Enter new first name:", student.first_name);
-      const newSurname = prompt("Enter new surname:", student.surname);
-      const newGender = prompt("Enter new gender:", student.gender);
-      const newCampus = prompt("Enter new campus:", student.campus);
-      const newSkills = prompt("Enter new skills:", student.skills);
-      const newPhone = prompt("Enter new phone:", student.phone);
-      const newEmail = prompt("Enter new email:", student.email);
+    if (!row) return;
 
-      if (
-        newFirstName &&
-        newSurname &&
-        newGender &&
-        newCampus &&
-        newSkills &&
-        newPhone &&
-        newEmail
-      ) {
+    // Get all cells except action buttons
+    const cells = row.querySelectorAll("td:not(:first-child):not(:last-child)");
+
+    // Store original values in case of cancel
+    const originalValues = Array.from(cells).map((cell) =>
+      cell.textContent.trim()
+    );
+
+    // Convert each cell into an input field
+    cells.forEach((cell) => {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = cell.textContent.trim();
+      cell.textContent = "";
+      cell.appendChild(input);
+    });
+
+    // Change "Edit" button to "Save" and add a "Cancel" button
+    const actionsCell = row.lastElementChild;
+    actionsCell.innerHTML = `
+      <button class="save-btn" data-id="${studentId}">Save</button>
+      <button class="cancel-btn">Cancel</button>
+  `;
+
+    // Handle "Save" click
+    actionsCell
+      .querySelector(".save-btn")
+      .addEventListener("click", async function () {
+        const updatedValues = Array.from(cells).map((cell) =>
+          cell.firstElementChild.value.trim()
+        );
+
+        // Update Firestore
         try {
+          const studentRef = doc(db, "students", studentId);
           await updateDoc(studentRef, {
-            first_name: newFirstName,
-            surname: newSurname,
-            gender: newGender,
-            campus: newCampus,
-            skills: newSkills,
-            phone: newPhone,
-            email: newEmail,
+            first_name: updatedValues[0],
+            surname: updatedValues[1],
+            gender: updatedValues[2],
+            campus: updatedValues[3],
+            skills: updatedValues[4],
+            phone: updatedValues[5],
+            email: updatedValues[6],
           });
 
           console.log("✅ Student updated successfully!");
-          renderStudents();
+          renderStudents(); // Re-render the table
         } catch (error) {
           console.error("❌ Error updating student:", error);
         }
-      } else {
-        console.log("❌ Update canceled! Some fields were empty.");
-      }
-    } else {
-      console.log("❌ Student not found!");
-    }
+      });
+
+    // Handle "Cancel" click
+    actionsCell
+      .querySelector(".cancel-btn")
+      .addEventListener("click", function () {
+        // Restore original values
+        cells.forEach((cell, index) => {
+          cell.textContent = originalValues[index];
+        });
+
+        // Restore action buttons
+        actionsCell.innerHTML = `
+          <button class="edit-btn" data-id="${studentId}">Edit</button>
+          <button class="delete-btn" data-id="${studentId}">Delete</button>
+      `;
+
+        // Reattach event listeners
+        actionsCell
+          .querySelector(".edit-btn")
+          .addEventListener("click", () => editStudent(studentId));
+        actionsCell
+          .querySelector(".delete-btn")
+          .addEventListener("click", () => deleteStudent(studentId));
+      });
   }
 
   //  LOGOUT FUNCTION
