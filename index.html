@@ -7,42 +7,38 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-
-
     <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
-    
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBJrYJeN67HcpW4wm--l7idb9Nbk3QMll8",
-            authDomain: "studentapp-d41f8.firebaseapp.com",
-            projectId: "studentapp-d41f8",
-            storageBucket: "studentapp-d41f8.appspot.com",
-            messagingSenderId: "807861020736",
-            appId: "1:807861020736:web:d2b72e83c7da0e0e6997a5"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-    
-        // Make Firestore available in other scripts
-        window.db = db;
-    </script>
-    
+      // Import Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
 
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBJrYJeN67HcpW4wm--l7idb9Nbk3QMll8",
+        authDomain: "studentapp-d41f8.firebaseapp.com",
+        projectId: "studentapp-d41f8",
+        storageBucket: "studentapp-d41f8.appspot.com",
+        messagingSenderId: "807861020736",
+        appId: "1:807861020736:web:d2b72e83c7da0e0e6997a5",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Make Firestore available in other scripts
+      window.db = db;
+    </script>
   </head>
-  
+
   <body>
     <h2>🎓 Student Registration</h2>
 
-  <div class="form-container">
-    <form id="studentForm" class="student-form">
+    <div class="form-container">
+      <form id="studentForm" class="student-form">
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" required placeholder="e.g Elisha"/>
-  
+        <input type="text" id="first_name" required placeholder="e.g Elisha" />
+
         <label for="surname">Surname:</label>
         <input type="text" id="surname" required placeholder="e.g Lawrence" />
 
@@ -51,28 +47,38 @@
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
-  
+
         <label for="campus">Campus:</label>
-        <input type="text" id="campus" required  placeholder="e.g Calabar"/>
-  
+        <input type="text" id="campus" required placeholder="e.g Calabar" />
+
         <label for="skills">Skills:</label>
         <input type="text" id="skills" required placeholder="e.g Engineering" />
-  
+
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" required  placeholder="e.g 070 4513 2229"/>
-  
+        <input
+          type="text"
+          id="phone"
+          required
+          placeholder="e.g 070 4513 2229"
+        />
+
         <label for="email">Email:</label>
-        <input type="email" id="email" required placeholder="e.g sundayelish179@gmail.com" />
-  
+        <input
+          type="email"
+          id="email"
+          required
+          placeholder="e.g sundayelish179@gmail.com"
+        />
+
         <button type="submit">Register</button>
-  
+
         <p id="registerMessage" class="message"></p>
       </form>
-  </div>
+    </div>
 
-   <div>
-    <a href="login.html">Admin Login</a>
-   </div>
+    <div>
+      <a href="login.html">Admin Login</a>
+    </div>
     <script type="module" src="script.js"></script>
   </body>
 </html>
