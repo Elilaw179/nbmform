@@ -56,25 +56,10 @@
         </form>
      </div>
 
+     <div id="networkOverlay" style="display: none;">
+        <p>No Internet Connection. Please check your network and try again.</p>
+      </div>
 
-
-
-     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const passwordField = document.getElementById("adminPassword");
-            const toggleButton = document.getElementById("togglePassword");
-
-            toggleButton.addEventListener("click", function () {
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    toggleButton.textContent = "👁️‍🗨️"; // Hide icon
-                } else {
-                    passwordField.type = "password";
-                    toggleButton.textContent = "👁️"; // Show icon
-                }
-            });
-        });
-    </script>
     <script type="module" src="script.js"></script>
 </body>
 </html>

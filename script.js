@@ -374,4 +374,84 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.classList.remove("print-mode");
     });
   }
+
+
+
+
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordField = document.getElementById("adminPassword");
+    const toggleButton = document.getElementById("togglePassword");
+
+    toggleButton.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "👁️‍🗨️"; // Hide icon
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "👁️"; // Show icon
+        }
+    });
+});
+
+
+
+
+
+// Function to add spinner to all buttons when clicked
+document.querySelectorAll("button").forEach((button) => {
+  // Create a spinner element
+  const spinner = document.createElement("span");
+  spinner.classList.add("loader");
+
+  // Append spinner to the button
+  button.appendChild(spinner);
+
+  button.addEventListener("click", function () {
+    // Show loading effect
+    button.classList.add("loading");
+    spinner.style.display = "inline-block"; // Show spinner
+
+    // Simulate delay (remove spinner after 2 seconds)
+    setTimeout(() => {
+      button.classList.remove("loading");
+      spinner.style.display = "none"; // Hide spinner
+    }, 2000);
+  });
+});
+
+
+
+
+
+
+// Function to handle network status
+function handleNetworkStatus() {
+  const overlay = document.getElementById("networkOverlay");
+  const isOnline = navigator.onLine;
+
+  if (isOnline) {
+    overlay.style.display = "none"; // Hide overlay when online
+  } else {
+    overlay.style.display = "flex"; // Show overlay when offline
+  }
+}
+
+// Check network on page load & listen for changes
+window.addEventListener("load", handleNetworkStatus);
+window.addEventListener("online", handleNetworkStatus);
+window.addEventListener("offline", handleNetworkStatus);
+
+
+
+
+
+
+
+
+
+
+
+
 });
